@@ -1,0 +1,95 @@
+using System;
+using System.Collections.Generic;
+
+namespace zadanie6
+{
+    class Program
+    {
+        public class Student
+        {
+            public string id;
+            public string fio;
+            public string group;
+            public string bDate;
+        }
+
+        static List<Student> studentList = new List<Student>();
+
+        static void AddStudent(string id, string fio, string bDate, string group)
+        {
+            studentList.Add(new Student() { id = id, fio = fio, bDate = bDate, group = group });
+        }
+
+
+        static void DelStudent(string id)
+        {
+            for (int i = 0; i < studentList.Count; i++)
+            {
+                if (studentList[i].id == id) studentList.RemoveAt(i);
+            }
+        }
+
+        static void ChangeStudent(string id, string fio, string bDate, string group)
+        {
+
+            for (int i = 0; i < studentList.Count; i++)
+            {
+                if (studentList[i].id == id)
+                {
+                    studentList[i].fio = fio;
+                    studentList[i].bDate = bDate;
+                    studentList[i].group = group;
+                }
+            }
+
+        }
+
+        static void ShowStudentFio()
+        {
+            for (int i = 0; i < studentList.Count; i++)
+            {
+                Console.WriteLine((i + 1) + ") " + studentList[i].fio);
+            }
+            Console.WriteLine();
+        }
+
+        static void ShowStudentById(string id)
+        {
+            for (int i = 0; i < studentList.Count; i++)
+            {
+                if (studentList[i].id == id)
+                    Console.WriteLine(
+                        studentList[i].id + ")"+ studentList[i].fio + " - " + studentList[i].bDate + " - " + studentList[i].group);
+            }
+            Console.WriteLine();
+        }
+
+        static void ShowStudentAge(string id)
+        {
+            for (int i = 0; i < studentList.Count; i++)
+            {
+                if (studentList[i].id == id)
+                {
+                    string[] studentListSplit = studentList[i].bDate.Split(".");
+                    int ourYear = 2020;
+
+                    if (int.TryParse(studentListSplit[2], out int res)) Console.Write("Возраст студента " + id + ": " + (ourYear - res) + " лет");
+                }
+            }
+            Console.WriteLine();
+        }
+
+        static void Main(string[] args)
+        {
+            Student first = new Student();
+
+            AddStudent("1", "Носова Эдда Парфеньевна", "01.02.2000", "ИСиП");
+            AddStudent("2", "Носова Ясмина Парфеньевна", "01.02.2000", "ИСиП");
+            AddStudent("3", "Носова Данна Парфеньевна", "01.02.2000", "ИСиП");
+            AddStudent("4", "Носова Октябрина Парфеньевна", "01.02.2000", "ИСиП");
+            ShowStudentFio();
+            ShowStudentById("1");
+            ShowStudentAge("1");
+        }
+    }
+}
